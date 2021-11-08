@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  myimage-postgres:
+    image: postgres
+    restart: always
+    env_file: .env
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_DATABASE}
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  myimage-api:
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@myimage-postgres:5432/${DB_DATABASE}?schema=public
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: myimage
+    ports:
+      - "3000:3000"
+    links:
+      - myimage-postgres

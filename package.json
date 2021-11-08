@@ -1,0 +1,36 @@
+{
+  "name": "current-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "backup-db": "docker exec -t jwt-authentication_myimage-postgres_1 pg_dumpall -c -U postgres > ./init.sql",
+    "create-db": "docker exec -i jwt-authentication_myimage-postgres_1 psql -U postgres -d postgres -c \"CREATE DATABASE mydb;\"",
+    "drop-db": "docker exec -i jwt-authentication_myimage-postgres_1 psql -U postgres -d postgres -c \"DROP DATABASE IF EXISTS mydb;\"",
+    "restore-sql": "docker exec -i jwt-authentication_myimage-postgres_1 psql -U postgres -d postgres < ./init.sql",
+    "db-restore": "npm run backup-db && npm run drop-db && npm run create-db && npm run restore-sql && npm run dbsync",
+    "watch": "nodemon server.js",
+    "auth": "nodemon authServer.js",
+    "dbsync": "npx prisma introspect && prisma generate",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^3.4.1",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/node": "^16.11.6",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.6.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "nodemon": "^1.19.2",
+    "prisma": "^3.4.1"
+  }
+}
