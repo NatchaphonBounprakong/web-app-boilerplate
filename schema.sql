@@ -13,6 +13,31 @@ SET standard_conforming_strings = on;
 
 DROP DATABASE mydb;
 
+
+
+
+--
+-- Drop roles
+--
+
+DROP ROLE postgres;
+DROP ROLE rockbionicle;
+
+
+--
+-- Roles
+--
+
+CREATE ROLE postgres;
+ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:fgwOcN2DzcDcr7dq+dLb4g==$eWmml34iPS4iKlqM1ANq9T6CSq+SL1F0V5IQr44GAP8=:ZPJHpzFR+xeFeZhx0/nZJUm0LvEIml7A3vg1QAGT5CU=';
+CREATE ROLE rockbionicle;
+ALTER ROLE rockbionicle WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:4Y9ztuc61IlBaaTNJlvKpw==$uE8bmTSdfNsyHe6FG5UBYM0PkThNKNIf2q0mLpHWpwE=:LG8iSPcOkqX9+zZOQEOb6SC90QbMhIjk6iMOhOusUbo=';
+
+
+
+
+
+
 --
 -- Databases
 --
@@ -258,52 +283,6 @@ ALTER TABLE ONLY public.user_login ALTER COLUMN id SET DEFAULT nextval('public.u
 --
 
 ALTER TABLE ONLY public.user_profile ALTER COLUMN id SET DEFAULT nextval('public.user_profile_id_seq'::regclass);
-
-
---
--- Data for Name: post; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Data for Name: user_login; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.user_login VALUES (1, 'rockbionicle', '$2a$10$gUZD80dbKyULPBByDGt2p.IcdoXOB4gZh0L98pbTsGjMTdXrlM8nK');
-INSERT INTO public.user_login VALUES (2, 'rockbionicle', '$2a$10$2esh8MEbb/f5vqjGe4WjXeysLc9Nt9I6uNuoDIo2vVtDHYyG/DFbC');
-INSERT INTO public.user_login VALUES (3, 'rockbionicle', '$2a$10$h36hWXtCgMFWbi7CK.rrj.5vgBBlPoNeIAjipceYR3Zimg.qse39a');
-INSERT INTO public.user_login VALUES (4, 'rockbionicle', '$2a$10$ke72nd/XoaazLivRxu8PjeSTFCoYVZD0zxv2BgCpzUlc9RzD0QSa6');
-INSERT INTO public.user_login VALUES (5, 'rockbionicle', '$2a$10$xm7pWg2V9EWCfElH5MOdG.NiFLpASs25xEXLs.SEP7Ya5OPXzFHEW');
-INSERT INTO public.user_login VALUES (6, 'rockbionicle', '$2a$10$i1ffUtKICbcIN8OGw.U1a.guI6nJgxtvSsv0t1nDc.VVfBLDrofdK');
-INSERT INTO public.user_login VALUES (7, 'rockbionicle', '$2a$10$VF9xrzZtfUmP0WGqrPCOluvbR4rVtqo2I0EwmM5LFxu8djPoqNs7e');
-
-
---
--- Data for Name: user_profile; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Name: post_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.post_id_seq', 1, false);
-
-
---
--- Name: user_login_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.user_login_id_seq', 7, true);
-
-
---
--- Name: user_profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.user_profile_id_seq', 1, false);
 
 
 --
