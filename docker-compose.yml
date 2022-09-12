@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  myimage-postgres:
+  postgres-image:
     image: postgres
     restart: always
     env_file: .env
@@ -12,7 +12,7 @@ services:
       POSTGRES_DB: ${DB_DATABASE}
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-  myimage-api:
+  api-image:
     environment:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@myimage-postgres:5432/${DB_DATABASE}?schema=public
     build:
