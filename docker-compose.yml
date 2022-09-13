@@ -14,7 +14,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   api-image:
     environment:
-      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@myimage-postgres:5432/${DB_DATABASE}?schema=public
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@postgres-image:${DB_PORT}/${DB_DATABASE}?schema=public
     build:
       context: ./
       dockerfile: Dockerfile
